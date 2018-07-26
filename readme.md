@@ -55,4 +55,4 @@ model-view 组件外面的容器可以是固定宽高，也可以是百分比大
 ```
 
 ## 效果
-![image](https://github.com/kuangch/vue-model-view/blob/master/screen.gif)
+![image](https://raw.githubusercontent.com/kuangch/vue-model-view/master/screen.gif)
