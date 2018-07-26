@@ -11,7 +11,7 @@ npm install vue-model-view -S
 
 全局应用组件
 ``` javascript
-import ModelView = from 'vue-model-view'
+import ModelView from 'vue-model-view'
 Vue.use(ModelView)
 ```
 
@@ -45,7 +45,7 @@ Vue.use(ModelView)
 ```
 background-color: 模型显示容器背景颜色(可选，默认值: gainsboro)
 options: 模型相关选项
-    * options.objUrl: 模型url
+    * options.objUrl: 模型文件url
     * options.resetButton 是否显示重置按钮(false/否，true/是)
 ```
 

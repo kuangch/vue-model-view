@@ -12,10 +12,9 @@
   },
   "keywords": [
     "vue",
-    "3D model",
-    "model view",
+    "3d model",
     "threejs",
-    "三维模型显示"
+    "三维模型"
   ],
   "author": "kuangch",
   "license": "ISC",
