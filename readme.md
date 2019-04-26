@@ -20,7 +20,7 @@ Vue.use(ModelView)
  <template>
 
    <div style="width: 200px;height: 200px;">
-       <model-view background-color="gainsboro" :options="model_options"/>
+       <model-view :loading-img="http://baidu.com/1.jpg" background-color="gainsboro" :options="model_options"/>
    </div>
 
  </template>
@@ -32,9 +32,13 @@ Vue.use(ModelView)
    data(){
        return {
            model_options:{
-               objUrl: 'model.obj',
-               resetButton: true,
-           }
+             objUrl: 'ring/ring1.obj',
+             mtlUrl: 'ring/ring1.mtl',
+             texture: true,
+             wire: true,
+             rotate: true,
+             controller: true,
+            }
        }
    }
  }
@@ -44,14 +48,29 @@ Vue.use(ModelView)
 组件属性
 ```
 background-color: 模型显示容器背景颜色(可选，默认值: gainsboro)
+loading-img: 模型显示容器加载完成前显示图片(可选，默认自带loading)
 options: 模型相关选项
-    * options.objUrl: 模型文件url
-    * options.resetButton 是否显示重置按钮(false/否，true/是)
+    * options.objUrl:       （必选）模型文件url
+    * options.mtlUrl:       （可选）纹理文件url
+    * options.texture:      （可选）是否显示纹理
+    * options.wire:         （可选）是否以网格展示
+    * options.rotate:       （可选）是否自动旋转
+    * options.controller:   （可选）是否显示控制按钮(false/否，true/是)
 ```
+
+组件方法
+```
+toggleTexture(): 显示/隐藏纹理
+toggleRotate():  打开/关闭自动旋转
+toggleWire():    实体/网格显示模型
+```
+
 
 说明
 ```
-model-view 组件外面的容器可以是固定宽高，也可以是百分比大小
+* model-view 组件外面的容器可以是固定宽高，也可以是百分比大小
+* 给外层容器font-size设置大小可以改变控制按钮的大小
+
 ```
 
 ## 效果
