@@ -17,12 +17,11 @@ export default {
   data(){
       return {
           model_options:{
-              objUrl: 'ring/ring1.obj',
-              mtlUrl: 'ring/ring1.mtl',
+              objUrl: 'bcc/bcc.obj',
+              mtlUrl: 'bcc/bcc.mtl',
               texture: true,
-              wire: true,
-              rotate: true,
-              controller: true,
+              wire: false,
+              rotate: false,
           },
           loading: undefined
       }
