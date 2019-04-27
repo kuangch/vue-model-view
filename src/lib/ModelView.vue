@@ -3,7 +3,7 @@
     <div style="width: 100%;height: 100%; position: relative;" class="c">
         <div :id="options.objUrl" ref="container" class="container" :style="{background: backgroundColor}"></div>
         <img v-if="!isLoadSuccess" class="loading" :src="imageSrc" ref="loadingImg"/>
-        <div class="control" v-if="isLoadSuccess && options.controller">
+        <div class="control" v-if="isLoadSuccess && controller">
             <i class="iconfont icon-reset" @click="$threeViewer.toFront()"></i>
             <i class="iconfont icon-rotate-obj" :class="{'action': settings.rotate}" @click="toggleRotate()"></i>
             <i class="iconfont icon-texture" :class="{'action': settings.texture}" @click="toggleTexture()"></i>
@@ -45,6 +45,11 @@
             },
             loadingImg:{
                 type:String,
+                required: false
+            },
+            controller:{
+                type:Boolean,
+                default: true,
                 required: false
             }
         },
