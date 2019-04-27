@@ -37,7 +37,6 @@ Vue.use(ModelView)
              texture: true,
              wire: true,
              rotate: true,
-             controller: true,
             }
        }
    }
@@ -49,20 +48,21 @@ Vue.use(ModelView)
 ```
 background-color: 模型显示容器背景颜色(可选，默认值: gainsboro)
 loading-img: 模型显示容器加载完成前显示图片(可选，默认自带loading)
+controller: 是否显示控制按钮(可选，默认是，false/否，true/是)
 options: 模型相关选项
     * options.objUrl:       （必选）模型文件url
     * options.mtlUrl:       （可选）纹理文件url
     * options.texture:      （可选）是否显示纹理
     * options.wire:         （可选）是否以网格展示
     * options.rotate:       （可选）是否自动旋转
-    * options.controller:   （可选）是否显示控制按钮(false/否，true/是)
 ```
 
 组件方法
 ```
-toggleTexture(): 显示/隐藏纹理
-toggleRotate():  打开/关闭自动旋转
-toggleWire():    实体/网格显示模型
+toFront(): 重置模型方位为正向最佳视角
+toggleTexture(): 显示/隐藏纹理，返回值bool（调用后是否显示纹理）
+toggleRotate():  打开/关闭自动旋转，返回值bool（调用后是否显示自动旋转）
+toggleWire():    实体/网格显示模型，返回值bool（调用后是否显示网格）
 ```
 
 

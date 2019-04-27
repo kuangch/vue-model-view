@@ -6,6 +6,7 @@
       <div class="btn" :class="{'action': model_options.rotate}" @click="rotate()">旋转</div>
       <div class="btn" :class="{'action': model_options.wire}" @click="wire()">网格</div>
       <div class="btn" @click="change()">切换</div>
+      <div class="btn" @click="$refs.viewer.toFront()">正面</div>
   </div>
 
 </template>
@@ -17,8 +18,8 @@ export default {
   data(){
       return {
           model_options:{
-              objUrl: 'bcc/bcc.obj',
-              mtlUrl: 'bcc/bcc.mtl',
+              objUrl: 'ring/ring1.obj',
+              mtlUrl: 'ring/ring1.mtl',
               texture: true,
               wire: false,
               rotate: false,

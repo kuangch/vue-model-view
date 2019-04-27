@@ -4,7 +4,7 @@
         <div :id="options.objUrl" ref="container" class="container" :style="{background: backgroundColor}"></div>
         <img v-if="!isLoadSuccess" class="loading" :src="imageSrc" ref="loadingImg"/>
         <div class="control" v-if="isLoadSuccess && controller">
-            <i class="iconfont icon-reset" @click="$threeViewer.toFront()"></i>
+            <i class="iconfont icon-reset" @click="toFront()"></i>
             <i class="iconfont icon-rotate-obj" :class="{'action': settings.rotate}" @click="toggleRotate()"></i>
             <i class="iconfont icon-texture" :class="{'action': settings.texture}" @click="toggleTexture()"></i>
             <i class="iconfont icon-wire-earth" :class="{'action': settings.wire}" @click="toggleWire()"></i>
@@ -75,6 +75,9 @@
                 })
             },
 
+            toFront: function () {
+                this.$threeViewer.toFront()
+            },
             toggleTexture: function () {
                 this.settings.texture = this.$threeViewer.toggleTexture()
                 return this.settings.texture
