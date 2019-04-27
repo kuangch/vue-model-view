@@ -5,6 +5,7 @@
       <div class="btn" @click="texture()">纹理</div>
       <div class="btn" @click="rotate()">旋转</div>
       <div class="btn" @click="wire()">网格</div>
+      <div class="btn" @click="change()">切换</div>
   </div>
 
 </template>
@@ -36,6 +37,15 @@ export default {
       },
       wire: function () {
           this.$refs.viewer.toggleWire()
+      },
+      change: function () {
+          if(this.model_options.objUrl === 'ring/ring1.obj'){
+              this.model_options.mtlUrl = 'ring/stone1.mtl'
+              this.model_options.objUrl = 'ring/stone1.obj'
+          }else{
+              this.model_options.mtlUrl = 'ring/ring1.mtl'
+              this.model_options.objUrl = 'ring/ring1.obj'
+          }
       }
   }
 }

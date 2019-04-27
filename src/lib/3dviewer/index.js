@@ -8,8 +8,9 @@ import Context from './Context'
 import TextureControl from './TextureControl'
 import OMLoader from './OMLoader'
 import ViewerControl from './ViewerControl'
+import utils from './Utils'
 
-let renderAnimateIDs = [];
+let requestAnimationFrameId = 0;
 
 let context
 let oMLoader
@@ -37,12 +38,14 @@ ThreeViewer.prototype.destroy = function (){
     }
 
     // 停止渲染
-    stopMeshRender();
+    console.log(`cancel requestAnimationFrameId id:  ${requestAnimationFrameId}` )
+    cancelAnimationFrame(requestAnimationFrameId)
+    requestAnimationFrameId = 0
 
     // 清空node节点
     context.settings.container && (context.settings.container.innerHTML = "");
 
-    // 清空 context
+    // 重置 context
     context.reset()
 }
 
@@ -71,25 +74,25 @@ ThreeViewer.prototype.init = function (settings) {
                     success:i==0 ? context.settings.success : undefined
                 })
             }
-
         }else {
-            if(context.settings.success){
-                context.settings.success()
-            }
+            utils.callFunc(context.settings.success)
         }
     })
 
 }
 
-/* ---------------------------
- 改变模型纹理，网格状态
- -------------------------- */
+/**
+ * 网格显示开关
+ */
 ThreeViewer.prototype.toggleWire = function () {
     context.settings.showWire = !context.settings.showWire;
 
     changeObjsStatus(context.meshs)
 }
 
+/**
+ * 纹理显示开关
+ */
 ThreeViewer.prototype.toggleTexture = function () {
     context.settings.showTexture = !context.settings.showTexture;
     context.configPLight()
@@ -103,9 +106,11 @@ function changeObjsStatus (meshs) {
     }
 }
 
-/* ---------------------------
- 更换模型纹理
- -------------------------- */
+/**
+ * 更换模型纹理
+ * @param objUrl
+ * @param mtlUrl
+ */
 ThreeViewer.prototype.changeTexture = function (objUrl, mtlUrl) {
 
     let key = Buffer.from(objUrl).toString('base64')
@@ -124,21 +129,22 @@ ThreeViewer.prototype.changeTexture = function (objUrl, mtlUrl) {
     console.log(`模型 ${objUrl} 不存在`)
 }
 
-/* ------------------------
-相机位置调整
------------------------- */
-ThreeViewer.prototype.toFront = function () {
+/**
+ * 重置正视
+ */
+ThreeViewer.prototype.toFront = function () { viewerControl.bestLook() }
 
-    viewerControl.bestLook()
-}
+/**
+ * 自动旋转开关
+ */
+ThreeViewer.prototype.toggleRotate = function () { context.settings.rotate = !context.settings.rotate; }
 
-/* ------------------------
-自动旋转
------------------------- */
-ThreeViewer.prototype.toggleRotate = function () {
-    context.settings.rotate = !context.settings.rotate;
-}
-
+/**
+ * 添加模型
+ * @param url
+ * @param mtlurl
+ * @param options
+ */
 ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
 
     let key = context.url2key(url)
@@ -190,13 +196,17 @@ ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
         (options.isBasic || context.meshKeys().length === 1) && (viewerControl.bestPosition(), viewerControl.bestLook());
 
         // 没有开始渲染调用渲染函数开始渲染
-        !renderAnimateIDs.length && animate(context.settings);
+        !requestAnimationFrameId && render();
 
         console.log(`模型: ${url} 加载成功`)
-        options.success && options.success.call && options.success()
+        utils.callFunc(options.success)
     });
 }
 
+/**
+ * 移除指定模型
+ * @param url
+ */
 ThreeViewer.prototype.removeObj = function (url){
     let key = context.url2key(url)
     if(key in context.meshs){
@@ -208,48 +218,18 @@ ThreeViewer.prototype.removeObj = function (url){
     }
 }
 
-/* ------------------------
-渲染相关
- ------------------------*/
-function animate() {
-
-    let renderAnimateID = setInterval(function () {
-        render();
-    }, 1000 / 50);
-    renderAnimateIDs.push(renderAnimateID);
-}
-
+/**
+ * 渲染
+ */
 function render() {
-    if (context.settings.rotate) {
-        viewerControl.rotateLeft();
-    }
-    context.controls.update(); //for cameras
 
+    context.settings.rotate && viewerControl.rotateLeft();
+    //for cameras
+    context.controls.update();
     context.renderer.render(context.scene, context.camera);
 
-}
+    requestAnimationFrameId = requestAnimationFrame(render)
 
-/**
- * 停止渲染
- */
-function stopMeshRender() {
-    try {
-        let len = renderAnimateIDs.length;
-        for (let i = 0; i < len; i++) {
-            let animateID = renderAnimateIDs.shift();
-            try {
-                clearInterval(animateID);
-                window.console.log('cancelRequestAnimationFrame success id: ' + animateID);
-            } catch (e) {
-                renderAnimateIDs.push(animateID);
-                window.console.log('cancelRequestAnimationFrame failed')
-            }
-        }
-    } catch (e) {
-        window.console.log(e)
-    }
-
-    window.console.log('still run: ' + renderAnimateIDs);
 }
 
 export default ThreeViewer

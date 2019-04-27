@@ -123,8 +123,8 @@
             'options.objUrl':{
                 handler: function () {
                     let __THIS = this
-                    window.console.log('ModelView objUrl changed')
-                    window.console.log(__THIS.options)
+                    window.console.log(`ModelView: model changed to:`)
+                    window.console.log(JSON.stringify(__THIS.options, null, 2))
                     __THIS.showModel(__THIS.options)
                 },
                 // deep: true,
