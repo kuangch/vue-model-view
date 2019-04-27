@@ -71,16 +71,16 @@
             },
 
             toggleTexture: function () {
-                this.settings.texture = !this.settings.texture
-                this.$threeViewer.toggleTexture()
+                this.settings.texture = this.$threeViewer.toggleTexture()
+                return this.settings.texture
             },
             toggleRotate: function () {
-                this.settings.rotate = !this.settings.rotate
-                this.$threeViewer.toggleRotate()
+                this.settings.rotate = this.$threeViewer.toggleRotate()
+                return this.settings.rotate
             },
             toggleWire: function () {
-                this.settings.wire = !this.settings.wire
-                this.$threeViewer.toggleWire()
+                this.settings.wire = this.$threeViewer.toggleWire()
+                return this.settings.wire
             },
 
             resetView: function(){
@@ -183,9 +183,6 @@
         }
         i.action{
             color: blue;
-        }
-        i:hover{
-            color: #222;
         }
     }
     .control:hover{

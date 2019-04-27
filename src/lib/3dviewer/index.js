@@ -82,12 +82,19 @@ ThreeViewer.prototype.init = function (settings) {
 }
 
 /**
+ * 重置正视
+ */
+ThreeViewer.prototype.toFront = function () { viewerControl.bestLook() }
+
+/**
  * 网格显示开关
  */
 ThreeViewer.prototype.toggleWire = function () {
     context.settings.showWire = !context.settings.showWire;
 
     changeObjsStatus(context.meshs)
+
+    return context.settings.showWire
 }
 
 /**
@@ -98,12 +105,16 @@ ThreeViewer.prototype.toggleTexture = function () {
     context.configPLight()
 
     changeObjsStatus(context.meshs)
+
+    return context.settings.showTexture
 }
 
-function changeObjsStatus (meshs) {
-    for(let mesh in meshs){
-        textureControl.mixinTexture(meshs[mesh])
-    }
+/**
+ * 自动旋转开关
+ */
+ThreeViewer.prototype.toggleRotate = function () {
+    context.settings.rotate = !context.settings.rotate;
+    return context.settings.rotate
 }
 
 /**
@@ -128,16 +139,6 @@ ThreeViewer.prototype.changeTexture = function (objUrl, mtlUrl) {
 
     console.log(`模型 ${objUrl} 不存在`)
 }
-
-/**
- * 重置正视
- */
-ThreeViewer.prototype.toFront = function () { viewerControl.bestLook() }
-
-/**
- * 自动旋转开关
- */
-ThreeViewer.prototype.toggleRotate = function () { context.settings.rotate = !context.settings.rotate; }
 
 /**
  * 添加模型
@@ -230,6 +231,16 @@ function render() {
 
     requestAnimationFrameId = requestAnimationFrame(render)
 
+}
+
+/**
+ * 批量修改模型显示属性
+ * @param meshs
+ */
+function changeObjsStatus (meshs) {
+    for(let mesh in meshs){
+        textureControl.mixinTexture(meshs[mesh])
+    }
 }
 
 export default ThreeViewer

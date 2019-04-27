@@ -2,9 +2,9 @@
 
   <div style="width: 200px;height: 200px;">
       <model-view ref="viewer" :loading-img="loading" background-color="transparent" :options="model_options"/>
-      <div class="btn" @click="texture()">纹理</div>
-      <div class="btn" @click="rotate()">旋转</div>
-      <div class="btn" @click="wire()">网格</div>
+      <div class="btn" :class="{'action': model_options.texture}" @click="texture()">纹理</div>
+      <div class="btn" :class="{'action': model_options.rotate}" @click="rotate()">旋转</div>
+      <div class="btn" :class="{'action': model_options.wire}" @click="wire()">网格</div>
       <div class="btn" @click="change()">切换</div>
   </div>
 
@@ -30,13 +30,13 @@ export default {
 
   methods:{
       texture: function () {
-          this.$refs.viewer.toggleTexture()
+          this.model_options.texture = this.$refs.viewer.toggleTexture()
       },
       rotate: function () {
-          this.$refs.viewer.toggleRotate()
+          this.model_options.rotate = this.$refs.viewer.toggleRotate()
       },
       wire: function () {
-          this.$refs.viewer.toggleWire()
+          this.model_options.wire = this.$refs.viewer.toggleWire()
       },
       change: function () {
           if(this.model_options.objUrl === 'ring/ring1.obj'){
@@ -57,10 +57,14 @@ export default {
 
         .btn{
             text-decoration:underline;
-            color: blue;
+            color: grey;
             cursor:pointer;
             padding-left: 5px;
             padding-right: 5px;
+        }
+
+        .btn.action{
+            color: blue;
         }
     }
 </style>
