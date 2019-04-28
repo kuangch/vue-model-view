@@ -2,8 +2,9 @@
   "name": "vue-model-view",
   "version": "1.1.0",
   "private": false,
-  "main": "src/lib/index.js",
+  "main": "dist/vue-3d-viewer.dist.js",
   "files": [
+    "dist",
     "src/lib"
   ],
   "repository": {
@@ -20,8 +21,9 @@
   "license": "ISC",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build": "rimraf dist && webpack --config build/webpack.3dviewer.js",
+    "build:demo": "vue-cli-service build"
   },
   "dependencies": {
     "three": "^0.94.0",
@@ -29,12 +31,31 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "@vue/cli-plugin-babel": "^3.0.0-rc.5",
     "@vue/cli-plugin-eslint": "^3.0.0-rc.5",
     "@vue/cli-service": "^3.0.0-rc.5",
-    "vue-template-compiler": "^2.5.16",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-istanbul": "^4.1.1",
+    "babel-plugin-module-resolver": "^2.2.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "babel-regenerator-runtime": "^6.5.0",
+    "css-loader": "^2.1.0",
     "node-sass": "^4.10.0",
-    "sass-loader": "^7.1.0"
+    "progress-bar-webpack-plugin": "^1.11.0",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "vue-loader": "^15.2.4",
+    "vue-template-compiler": "^2.5.16",
+    "vue-template-es2015-compiler": "^1.6.0",
+    "webpack": "^4.14.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-node-externals": "^1.7.2"
   },
   "eslintConfig": {
     "root": true,

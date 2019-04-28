@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import ModelView from './lib'
+import ModelView from '../../../lib'
 
 Vue.config.productionTip = false
 
