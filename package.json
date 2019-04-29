@@ -12,10 +12,13 @@
     "url": "https://github.com/kuangch/vue-model-view"
   },
   "keywords": [
-    "vue",
-    "3d model",
+    "vue 3d viewer",
+    "3d",
+    "model viewer",
     "threejs",
-    "三维模型"
+    "三维模型显示",
+    "支持纹理显示隐藏",
+    "支持自动旋转"
   ],
   "author": "kuangch",
   "license": "ISC",
