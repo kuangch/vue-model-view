@@ -1,6 +1,6 @@
 {
   "name": "vue-model-view",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": false,
   "main": "dist/vue-3d-viewer.dist.js",
   "typings": "src/lib/index.js",
