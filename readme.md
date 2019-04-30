@@ -11,13 +11,13 @@
 npm install vue-model-view -S
 ```
 
-全局应用组件
+组件安装
 ``` javascript
 import ModelView from 'vue-model-view'
 Vue.use(ModelView)
 ```
 
-使用组件
+组件使用
 ``` html
  <template>
 
