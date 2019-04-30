@@ -74,6 +74,9 @@ function traverseObjMat(context,blankMat,mesh) {
             }
         }
     });
+
+    //模型状态的改变可能需要重新配置点光源光照
+    context.configPLight()
 }
 
 export default TextureControl

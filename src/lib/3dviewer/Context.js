@@ -135,10 +135,40 @@ Context.prototype.reset = function() {
 }
 
 /**
- * 点光源光照配置(显示纹理和不显示纹理)
+ * 自定义支持多纹理处理的 traverse方法
+ * @param realMesh  THREE mesh对象
+ * @param cb 回调返回所有纹理对象
+ */
+Context.prototype.traverseSupportMultiTexture  = function (realMesh,cb) {
+    realMesh && realMesh.traverse(function (object) {
+        if (object instanceof THREE.Mesh) {
+            if (object.material instanceof Array){
+                // obj 中定义了多纹理
+                for (let m in object.material) {
+                    if (object.material[m]) cb(object.material[m])
+                }
+            }else{
+                // obj 中定义了一个纹理
+                if (object.material) cb(object.material)
+            }
+        }
+    });
+}
+/**
+ * 点光源光照配置(显示纹理和不显示纹理,并且所有的obj中有有纹理的obj)
  */
 Context.prototype.configPLight = function() {
-    this.pointLight.color.set(this.settings.showTexture ? 0xffffff : 0x888888);
+    let _this = this
+
+    // 获取是否真正有纹理（解决因为纹理图片加载未完成导致的实际无纹理问题）
+    let hasTextureImg = false
+    for(let mesh in this.meshs){
+        _this.traverseSupportMultiTexture(_this.meshs[mesh].obj,function (material) {
+            if(material.map) hasTextureImg = true
+        })
+    }
+
+    this.pointLight.color.set(this.settings.showTexture && hasTextureImg ? 0xffffff : 0x888888);
     this.pointLight.intensity = 0.6;
 }
 

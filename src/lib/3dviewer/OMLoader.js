@@ -9,6 +9,7 @@ let OBJLoader = require('three-obj-loader');
 require('./lib/loaders/MTLLoader');
 
 import OBJLoaderParse from './OBJLoaderParse'
+import MTLLoaderMaterialCreator from './MTLLoaderMaterialCreator'
 
 /**
  * 自定义mtl，obj文件加载类
@@ -16,15 +17,17 @@ import OBJLoaderParse from './OBJLoaderParse'
  * 2.未此项目定义一些通用的load相关方法
  * @constructor
  */
-function OMLoader() {
+function OMLoader(context) {
 
     // 包装obj loader (把OBJLoader挂到THREE对象上)
     OBJLoader(THREE)
 
-    // 用修改了一些逻辑的parse方法替换原OBJLoader的parse方法
+    // 对THREE对象上的某些方法进行覆盖以适应逻辑
     OBJLoaderParse(THREE)
+    MTLLoaderMaterialCreator(THREE, context)
 
     this.objLoader = new THREE.OBJLoader();
+    this.context = context;
     let _this = this
 
     // 定义自定义的obj加载器

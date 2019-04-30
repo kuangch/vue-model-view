@@ -23,7 +23,7 @@ let textureControl
  */
 function ThreeViewer() {
     context = new Context()
-    oMLoader = new OMLoader()
+    oMLoader = new OMLoader(context)
     viewerControl = new ViewerControl(context)
 }
 
@@ -102,7 +102,6 @@ ThreeViewer.prototype.toggleWire = function () {
  */
 ThreeViewer.prototype.toggleTexture = function () {
     context.settings.showTexture = !context.settings.showTexture;
-    context.configPLight()
 
     changeObjsStatus(context.meshs)
 
@@ -195,6 +194,8 @@ ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
 
         // 是基础模型,或者只有一个模型调整相机视角
         (options.isBasic || context.meshKeys().length === 1) && (viewerControl.bestPosition(), viewerControl.bestLook());
+
+        context.configPLight()
 
         // 没有开始渲染调用渲染函数开始渲染
         !requestAnimationFrameId && render();
