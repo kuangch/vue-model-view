@@ -2,11 +2,13 @@
 
   <div style="width: 200px;height: 200px;">
       <model-view ref="viewer" :loading-img="loading" background-color="transparent" :options="model_options"/>
-      <div class="btn" :class="{'action': model_options.texture}" @click="texture()">纹理</div>
-      <div class="btn" :class="{'action': model_options.rotate}" @click="rotate()">旋转</div>
-      <div class="btn" :class="{'action': model_options.wire}" @click="wire()">网格</div>
-      <div class="btn" @click="change()">切换</div>
-      <div class="btn" @click="$refs.viewer.toFront()">正面</div>
+
+      <div v-if="!loadingSuccess">加载中，请耐心等待..</div>
+      <div v-if="loadingSuccess" class="btn" :class="{'action': model_options.texture}" @click="texture()">纹理</div>
+      <div v-if="loadingSuccess" class="btn" :class="{'action': model_options.rotate}" @click="rotate()">旋转</div>
+      <div v-if="loadingSuccess" class="btn" :class="{'action': model_options.wire}" @click="wire()">网格</div>
+      <div v-if="loadingSuccess" class="btn" @click="change()">切换</div>
+      <div v-if="loadingSuccess" class="btn" @click="$refs.viewer.toFront()">正面</div>
   </div>
 
 </template>
@@ -18,13 +20,15 @@ export default {
   data(){
       return {
           model_options:{
-              objUrl: 'ring/ring1.obj',
-              mtlUrl: 'ring/ring1.mtl',
+              objUrl: 'ring/stone1.obj',
+              mtlUrl: 'ring/stone1.mtl',
               texture: true,
               wire: false,
               rotate: false,
+              success: this.success
           },
-          loading: undefined
+          loading: undefined,
+          loadingSuccess: false
       }
   },
 
@@ -39,6 +43,7 @@ export default {
           this.model_options.wire = this.$refs.viewer.toggleWire()
       },
       change: function () {
+          this.loadingSuccess = false
           if(this.model_options.objUrl === 'ring/ring1.obj'){
               this.model_options.mtlUrl = 'ring/stone1.mtl'
               this.model_options.objUrl = 'ring/stone1.obj'
@@ -46,6 +51,9 @@ export default {
               this.model_options.mtlUrl = 'ring/ring1.mtl'
               this.model_options.objUrl = 'ring/ring1.obj'
           }
+      },
+      success: function () {
+          this.loadingSuccess = true
       }
   }
 }

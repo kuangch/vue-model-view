@@ -15,6 +15,7 @@
 
 <script>
     import ThreeViewer from './3dviewer'
+    import utils from './3dviewer/Utils'
     let defaultLoading = require('./assets/loading.png')
 
     export default {
@@ -30,6 +31,7 @@
                     rotate: this.options.rotate,
                     texture: this.options.texture,
                     wire: this.options.wire,
+                    success: this.options.success,
                 }
             }
         },
@@ -70,6 +72,7 @@
                         }
                     ],
                     success: function(){
+                        utils.callFunc(_this.settings.success)
                         _this.isLoadSuccess = true
                     }
                 })

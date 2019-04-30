@@ -39,6 +39,7 @@ Vue.use(ModelView)
              texture: true,
              wire: true,
              rotate: true,
+             success: function(){}
             }
        }
    }
@@ -53,11 +54,12 @@ loading-img      : 模型显示容器加载完成前显示图片(可选，默认
 controller       : 是否显示控制按钮(可选，默认是，false/否，true/是)
 
 options: 模型相关选项
-    · options.objUrl       :（必选）模型文件url
-    · options.mtlUrl       :（可选）纹理文件url
-    · options.texture      :（可选）是否显示纹理
-    · options.wire         :（可选）是否以网格展示
-    · options.rotate       :（可选）是否自动旋转
+    · options.objUrl       :（必选）<string> 模型文件url
+    · options.mtlUrl       :（可选）<string> 纹理文件url
+    · options.texture      :（可选）<bool> 是否显示纹理
+    · options.wire         :（可选）<bool> 是否以网格展示
+    · options.rotate       :（可选）<bool> 是否自动旋转
+    · options.success      :（可选）<Function> 模型加载成功回调
 ```
 
 组件方法
