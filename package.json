@@ -24,6 +24,7 @@
   "author": "kuangch",
   "license": "ISC",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "build": "rimraf dist && webpack --config build/webpack.3dviewer.js",
