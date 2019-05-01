@@ -2,7 +2,7 @@
 
     <div style="width: 100%;height: 100%; position: relative;" class="c">
         <div :id="options.objUrl" ref="container" class="container" :style="{background: backgroundColor}"></div>
-        <img v-if="!isLoadSuccess" class="loading" :src="imageSrc" ref="loadingImg"/>
+        <img v-show="!isLoadSuccess" class="loading" :src="imageSrc" ref="loadingImg"/>
         <div class="control" v-if="isLoadSuccess && controller">
             <i class="iconfont icon-reset" @click="toFront()"></i>
             <i class="iconfont icon-rotate-obj" :class="{'action': settings.rotate}" @click="toggleRotate()"></i>
