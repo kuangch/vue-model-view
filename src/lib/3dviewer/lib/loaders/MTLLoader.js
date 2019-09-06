@@ -374,7 +374,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 			texture = new THREE.Texture();
 
 			loader = new THREE.ImageLoader();
-			loader.crossOrigin = this.crossOrigin;
+			// loader.crossOrigin = this.crossOrigin;
 			loader.load( url, function ( image ) {
 
 				texture.image = THREE.MTLLoader.ensurePowerOfTwo_( image );
