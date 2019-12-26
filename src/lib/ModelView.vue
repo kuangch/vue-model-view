@@ -113,14 +113,7 @@
                 let element = _this.$refs.container;
                 let width = window.getComputedStyle(element).getPropertyValue('width')
                 let height = window.getComputedStyle(element).getPropertyValue('height')
-                if (!_this.$recordOldValue){
-                    _this.$recordOldValue = {
-                        width,
-                        height
-                    }
-                    return;
-                }
-                if (width === _this.$recordOldValue.width && height === _this.$recordOldValue.height) return
+                if (_this.$recordOldValue && width === _this.$recordOldValue.width && height === _this.$recordOldValue.height) return
                 _this.$recordOldValue = {
                     width,
                     height
