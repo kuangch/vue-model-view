@@ -1,6 +1,6 @@
 <template>
 
-  <div style="width: 200px;height: 200px;">
+  <div style="width: 30vw;height: 30vw;">
       <model-view ref="viewer" :loading-img="loading" background-color="transparent" :options="model_options"/>
 
       <div v-if="!loadingSuccess">加载中，请耐心等待..</div>

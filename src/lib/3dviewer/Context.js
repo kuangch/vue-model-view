@@ -24,6 +24,21 @@ function Context() {
     }
 }
 
+/**
+ * 模型显示区域大小变化，重新配置鼠标控制，相机视角，调整画布大小
+ */
+Context.prototype.containerSizeChange = function () {
+    if(!this.renderer || !this.settings.container){
+        return;
+    }
+    // 画布
+    this.renderer.setSize(this.settings.container.clientWidth, this.settings.container.clientHeight);
+
+    // 鼠标控制
+    this.controls = new TrackballControls(this.camera, this.settings.container);
+}
+
+
 // 上下文初始化
 Context.prototype.init = function (customSettings) {
 

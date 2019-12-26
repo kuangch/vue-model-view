@@ -28,6 +28,13 @@ function ThreeViewer() {
 }
 
 /**
+ * 重新调整渲染区域
+ */
+ThreeViewer.prototype.reSizeRender = function (){
+    context.containerSizeChange()
+}
+
+/**
  * 销毁 context
  */
 ThreeViewer.prototype.destroy = function (){

@@ -32,7 +32,7 @@
                     texture: this.options.texture,
                     wire: this.options.wire,
                     success: this.options.success,
-                }
+                },
             }
         },
 
@@ -78,6 +78,10 @@
                 })
             },
 
+            resize: function () {
+                this.$threeViewer.reSizeRender()
+            },
+
             toFront: function () {
                 this.$threeViewer.toFront()
             },
@@ -103,6 +107,37 @@
         mounted(){
             let _this = this
 
+            let t = null;
+
+            _this.$onResize = function (ev) {
+                let element = _this.$refs.container;
+                let width = window.getComputedStyle(element).getPropertyValue('width')
+                let height = window.getComputedStyle(element).getPropertyValue('height')
+                if (!_this.$recordOldValue){
+                    _this.$recordOldValue = {
+                        width,
+                        height
+                    }
+                    return;
+                }
+                if (width === _this.$recordOldValue.width && height === _this.$recordOldValue.height) return
+                _this.$recordOldValue = {
+                    width,
+                    height
+                }
+
+                if(t){
+                    clearTimeout(t);
+                }
+
+                t = setTimeout(function () {
+                    _this.resize()
+                },100)
+
+            }
+
+            window.addEventListener("resize", _this.$onResize, false)
+
             // 使用自带loading旋转
             function addAnim(){
                 _this.$refs.loadingImg.style.cssText += 'animation: rotate 2s 0s infinite linear;'
@@ -127,6 +162,10 @@
 
         beforeDestroy(){
             window.console.log( `${this.$options._componentTag} beforeDestroy`)
+
+            if(this.$onResize){
+                window.removeEventListener("resize", this.$onResize)
+            }
             this.resetView()
         },
 
