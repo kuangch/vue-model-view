@@ -34,8 +34,12 @@ Context.prototype.containerSizeChange = function () {
     // 画布
     this.renderer.setSize(this.settings.container.clientWidth, this.settings.container.clientHeight);
 
+    // 相机
+    this.camera.aspect = this.settings.container.clientWidth / this.settings.container.clientHeight;
+
     // 鼠标控制
-    this.controls = new TrackballControls(this.camera, this.settings.container);
+    this.controls.handleResize()
+
 }
 
 
@@ -57,16 +61,9 @@ Context.prototype.init = function (customSettings) {
 
     // 鼠标控制
     this.controls = new TrackballControls(this.camera, this.settings.container);
-    this.controls.rotateSpeed = 1.0;
-    this.controls.zoomSpeed = 1.2;
     this.controls.panSpeed = 0.2;
-    this.controls.noZoom = false;
     this.controls.noPan = false;
-    this.controls.staticMoving = false;
     this.controls.dynamicDampingFactor = 0.3;
-    //this.controls.minDistance = 200;
-    //this.controls.maxDistance = 1000;
-    this.controls.keys = [65, 83, 68]; // [ rotateKey, zoomKey, panKey ]
 
     // 环境光
     let ambientLight = new THREE.AmbientLight(0xdddddd, 0.4);
