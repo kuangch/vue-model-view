@@ -68,6 +68,17 @@ options: 模型相关选项
 · toggleTexture()   : 显示/隐藏纹理，返回值bool（调用后是否显示纹理）
 · toggleRotate()    : 打开/关闭自动旋转，返回值bool（调用后是否显示自动旋转）
 · toggleWire()      : 实体/网格显示模型，返回值bool（调用后是否显示网格）
+
+· addObj(url,mtlurl,options)    : 添加3d物体
+    参数说明:
+        url     : (必选)<string> 模型文件路径
+        mtlurl  : (可选)<string> 纹理文件路径
+        options : (可选)<object> 其他参数
+            isBasic : (可选)<bool> default(false)是否是基础3d物体（基础模型居中其他模型按照相对于基础模型的控件位置放置），只能add一个基础模型
+      
+· removeObj(url)                : 移除模型
+    参数说明:
+        url     : (必选)<string> 模型文件路径
 ```
 
 
