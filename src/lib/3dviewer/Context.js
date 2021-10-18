@@ -16,6 +16,7 @@ function Context() {
     this.renderer = null
     this.controls = null
     this.pointLight = null
+    this.ambientLight = null
     this.meshs = {}
     this.settings = {
         showTexture: true,
@@ -66,8 +67,8 @@ Context.prototype.init = function (customSettings) {
     this.controls.dynamicDampingFactor = 0.3;
 
     // 环境光
-    let ambientLight = new THREE.AmbientLight(0xdddddd, 0.4);
-    this.scene.add(ambientLight);
+    this.ambientLight = new THREE.AmbientLight();
+    this.scene.add(this.ambientLight);
 
     // 点光源
     this.pointLight = new THREE.PointLight();
@@ -181,7 +182,9 @@ Context.prototype.configPLight = function() {
     }
 
     this.pointLight.color.set(this.settings.showTexture && hasTextureImg ? 0xffffff : 0x888888);
-    this.pointLight.intensity = 0.6;
+    this.pointLight.intensity = (this.settings.showTexture && hasTextureImg ? 0.2 : 0.6);
+
+    this.ambientLight.intensity = (this.settings.showTexture && hasTextureImg ? 1 : 0.4);
 }
 
 export default Context
