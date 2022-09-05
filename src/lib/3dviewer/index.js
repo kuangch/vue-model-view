@@ -45,7 +45,7 @@ ThreeViewer.prototype.destroy = function (){
     }
 
     // 停止渲染
-    console.log(`cancel requestAnimationFrameId id:  ${requestAnimationFrameId}` )
+    console.info(`cancel requestAnimationFrameId id:  ${requestAnimationFrameId}` )
     cancelAnimationFrame(requestAnimationFrameId)
     requestAnimationFrameId = 0
 
@@ -143,7 +143,7 @@ ThreeViewer.prototype.changeTexture = function (objUrl, mtlUrl) {
         return
     }
 
-    console.log(`模型 ${objUrl} 不存在`)
+    console.warn(`模型 ${objUrl} 不存在`)
 }
 
 /**
@@ -165,14 +165,14 @@ ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
 
         //被隐藏，重新显示
         if (context.meshs[key].hide){
-            console.log(`模型 ${url} 已成功加载过，使用内存数据`)
+            console.warn(`模型 ${url} 已成功加载过，使用内存数据`)
             context.meshs[key].hide = false
             // 重新载入需要重新读取模型展示状态
             textureControl.mixinTexture(context.meshs[key])
             context.scene.add(context.meshs[key].obj)
             return
         }else{
-            console.log(`模型 ${url} 已在渲染，无需重复添加`)
+            console.warn(`模型 ${url} 已在渲染，无需重复添加`)
             return
         }
     }
@@ -213,7 +213,7 @@ ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
         // 没有开始渲染调用渲染函数开始渲染
         !requestAnimationFrameId && render();
 
-        console.log(`模型: ${url} 加载成功`)
+        console.info(`模型: ${url} 加载成功`)
         utils.callFunc(options.success)
     });
 }
@@ -227,9 +227,9 @@ ThreeViewer.prototype.removeObj = function (url){
     if(key in context.meshs){
         context.scene.remove(context.meshs[key].obj)
         context.meshs[key].hide = true
-        console.log(`已移除模型: ${url}`)
+        console.info(`已移除模型: ${url}`)
     }else{
-        console.log(`渲染列表无此模型: ${url}，无需删除`)
+        console.warn(`渲染列表无此模型: ${url}，无需删除`)
     }
 }
 
