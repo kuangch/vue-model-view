@@ -181,7 +181,13 @@ ThreeViewer.prototype.addObj = function (url,mtlurl,options={isBasic:false}) {
     context.meshs[key] = {isBasic : options.isBasic}
 
     // 没加载过或者被销毁
-    oMLoader.loadOM(url, mtlurl, function (mesh) {
+    oMLoader.loadOM(url, mtlurl, function (mesh, loader) {
+
+        // 解决异步加载模型文件完成后，实际当前模型渲染的上下文已经销毁，模型被渲染到其他渲染上下文的bug
+        if (loader !== oMLoader){
+            console.info("下载模型完成，但下载的oMLoader对象已不是执行下载操作的对象")
+            return
+        }
 
         // 加载失败
         if (!mesh.obj) {

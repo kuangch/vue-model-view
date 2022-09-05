@@ -45,7 +45,7 @@ function OMLoader(context) {
                 mesh.obj = __this.parse(text)
                 mesh.textureMat = textureMat
 
-                onLoad(mesh);
+                onLoad(mesh, _this);
             });
         })
 
